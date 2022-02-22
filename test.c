@@ -10,9 +10,25 @@ int main()
 {
     // Header
     header();
-
+    int n;
+    printf("Choose an option:\n\n");
     printf("1.Add Money\n");
     printf("2.Add Expense\n");
     printf("3.View Cashflow\n");
-    
+    scanf("%d",&n);
+    switch(n)
+    {
+        case 1:
+        printf("Add money");
+        break;
+        case 2:
+        printf("Add Expense");
+        break;
+        case 3:
+        printf("View Cashflow");
+        break;
+        default:
+        printf("Invalid option");
+        break;
+    }
 }
