@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 //header function
 void header(){
@@ -11,6 +12,7 @@ int main()
     // Header
     header();
     int n;
+    FILE *fp;
     printf("Choose an option:\n\n");
     printf("1.Add Money\n");
     printf("2.Add Expense\n");
@@ -20,6 +22,9 @@ int main()
     {
         case 1:
         printf("Add money");
+        fp  = fopen ("./datafiles/cash.txt", "w");
+        fputs("Hello world", fp);
+        fclose(fp);
         break;
         case 2:
         printf("Add Expense");
