@@ -10,8 +10,8 @@ void header()
 }
 void addmoney()
 {
-    fp = fopen("./datafiles/cash.txt", "w");
-    fputs("Hello world", fp);
+    fp = fopen("./datafiles/cash.txt", "a");
+    fputs("Hello world\n", fp);
     fclose(fp);
 }
 
