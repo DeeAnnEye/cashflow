@@ -39,6 +39,7 @@ void addmoney(struct Cash cash)
     t = time(NULL);
     struct tm tm = *localtime(&t);
 
+    // input data into structure
     printf("Enter Income:");
     scanf("%d", &cash.Income);
     printf("Enter Expense:");
@@ -49,18 +50,21 @@ void addmoney(struct Cash cash)
     cash.date.month = tm.tm_mon+1;
     cash.date.year = tm.tm_year+1900;
 
+    // file opening
     fp = fopen("datafiles/cash.txt", "a");
     if (fp == NULL)
     {
         fprintf(stderr, "\nError to open the file\n");
         exit(1);
     }
+    // writing to file
     fwrite(&cash, sizeof(struct Cash), 1, fp);
     if (fwrite != 0)
         printf("Contents to file written successfully !\n");
     else
         printf("Error writing file !\n");
     fclose(fp);
+    // reading data from file
     fr = fopen("datafiles/cash.txt", "r");
     while (fread(&cash, sizeof(struct Cash), 1, fr))
         printf(" income = %d expense = %d description = %s Date: %d-%d-%d\n", cash.Income, cash.Expense, cash.Description, cash.date.day,cash.date.month,cash.date.year);
