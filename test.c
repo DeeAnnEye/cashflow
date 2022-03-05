@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 FILE *fp;
 FILE *fr;
@@ -10,6 +11,12 @@ struct Cash
     int Income;
     int Expense;
     char Description[50];
+    struct Date
+    {
+        int day;
+        int month;
+        int year;
+    } date;
 };
 
 // header function
@@ -28,28 +35,37 @@ void mainmenu()
 }
 void addmoney(struct Cash cash)
 {
-   printf("Enter Income:");
-   scanf("%d",&cash.Income);
-   printf("Enter Expense:");
-   scanf("%d",&cash.Expense);
-   printf("Enter Description:");
-   scanf("%s",&cash.Description);
+    time_t t;
+    t = time(NULL);
+    struct tm tm = *localtime(&t);
 
-   fp= fopen ("datafiles/cash.txt", "a");
-   if (fp == NULL) {
-      fprintf(stderr, "\nError to open the file\n");
-      exit (1);
-   }
-    fwrite (&cash, sizeof(struct Cash), 1, fp);
-   if(fwrite != 0)
-      printf("Contents to file written successfully !\n");
-   else
-      printf("Error writing file !\n");
-   fclose (fp);
-//    fr= fopen ("datafiles/cash.txt", "r");
-//     while(fread(&cash, sizeof(struct Cash), 1, fr))
-//       printf (" income = %d expense = %d description = %s\n", cash.Income, cash.Expense, cash.Description);
-//    fclose (fr);
+    printf("Enter Income:");
+    scanf("%d", &cash.Income);
+    printf("Enter Expense:");
+    scanf("%d", &cash.Expense);
+    printf("Enter Description:");
+    scanf("%s", &cash.Description);
+    cash.date.day = tm.tm_mday;
+    cash.date.month = tm.tm_mon+1;
+    cash.date.year = tm.tm_year+1900;
+
+    fp = fopen("datafiles/cash.txt", "a");
+    if (fp == NULL)
+    {
+        fprintf(stderr, "\nError to open the file\n");
+        exit(1);
+    }
+    fwrite(&cash, sizeof(struct Cash), 1, fp);
+    if (fwrite != 0)
+        printf("Contents to file written successfully !\n");
+    else
+        printf("Error writing file !\n");
+    fclose(fp);
+    fr = fopen("datafiles/cash.txt", "r");
+    while (fread(&cash, sizeof(struct Cash), 1, fr))
+        printf(" income = %d expense = %d description = %s Date: %d-%d-%d\n", cash.Income, cash.Expense, cash.Description, cash.date.day,cash.date.month,cash.date.year);
+    // printf("Current Date: %d-%d-%d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+    fclose(fr);
 }
 
 int main()
@@ -58,7 +74,7 @@ int main()
     header();
     int n;
     struct Cash cash;
-    
+
     mainmenu();
     scanf("%d", &n);
     switch (n)
