@@ -169,24 +169,25 @@ void viewcash(struct Cash cash)
 
         // read data from file
         fr = fopen("datafiles/cash.txt", "r");
+        if(k>0){
         while (fread(&cash, sizeof(struct Cash), 1, fr))
         {
-            if (k > 0)
-            {
-                // printf("%d",k);
                 if (m == cash.date.month)
                 {
                     (cash.Income == 0) ? printf("Income = NIL ") : printf("Income = %d ", cash.Income);
                     (cash.Expense == 0) ? printf("Expense = NIL ") : printf("Expense = %d ", cash.Expense);
                     printf("Description = %s Date: %d-%d-%d\n", cash.Description, cash.date.day, cash.date.month, cash.date.year);
                 }
-            }
             // printf("Current Date: %d-%d-%d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+        }
+        }else{
+            printf("No Cashflow for selected month.");
         }
         fclose(fr);
         break;
     case 3:
-        viewcash(cash);
+        monthselector();
+        scanf("%d", &m);
         break;
     default:
         printf("Invalid option");
