@@ -98,12 +98,6 @@ void addincome(struct Cash cash)
     else
         printf("Couldn't add income!\n");
     fclose(fp);
-    // // reading data from file
-    // fr = fopen("datafiles/cash.txt", "r");
-    // while (fread(&cash, sizeof(struct Cash), 1, fr))
-    //     printf(" income = %d expense = %d description = %s Date: %d-%d-%d\n", cash.Income, cash.Expense, cash.Description, cash.date.day,cash.date.month,cash.date.year);
-    // // printf("Current Date: %d-%d-%d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
-    // fclose(fr);
 }
 void addexpense(struct Cash cash)
 {
@@ -156,28 +150,37 @@ void viewcash(struct Cash cash)
         fclose(fr);
         break;
     case 2:
-        int m;
+        int m, k = 0;
         monthselector();
         scanf("%d", &m);
-        // reading data from file
+
+
+        // check month exists
         fr = fopen("datafiles/cash.txt", "r");
         while (fread(&cash, sizeof(struct Cash), 1, fr))
         {
             if (m == cash.date.month)
             {
-                (cash.Income == 0) ? printf("Income = NIL ") : printf("Income = %d ", cash.Income);
-                (cash.Expense == 0) ? printf("Expense = NIL ") : printf("Expense = %d ", cash.Expense);
-                printf("Description = %s Date: %d-%d-%d\n", cash.Description, cash.date.day, cash.date.month, cash.date.year);
+                k = k + 1;
             }
-            else if(!cash.date.month){
-               return 0;
+        }
+        // printf("%d\n", k);
+        fclose(fr);
+
+        // read data from file
+        fr = fopen("datafiles/cash.txt", "r");
+        while (fread(&cash, sizeof(struct Cash), 1, fr))
+        {
+            if (k > 0)
+            {
+                // printf("%d",k);
+                if (m == cash.date.month)
+                {
+                    (cash.Income == 0) ? printf("Income = NIL ") : printf("Income = %d ", cash.Income);
+                    (cash.Expense == 0) ? printf("Expense = NIL ") : printf("Expense = %d ", cash.Expense);
+                    printf("Description = %s Date: %d-%d-%d\n", cash.Description, cash.date.day, cash.date.month, cash.date.year);
+                }
             }
-            else{
-                printf("OOPS!");
-            }
-            // (cash.Income == 0) ? printf("Income = NIL ") : printf("Income = %d ", cash.Income);
-            // (cash.Expense == 0) ? printf("Expense = NIL ") : printf("Expense = %d ", cash.Expense);
-            // printf("Description = %s Date: %d-%d-%d\n", cash.Description, cash.date.day, cash.date.month, cash.date.year);
             // printf("Current Date: %d-%d-%d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
         }
         fclose(fr);
@@ -189,17 +192,6 @@ void viewcash(struct Cash cash)
         printf("Invalid option");
         break;
     }
-
-    //    // reading data from file
-    // fr = fopen("datafiles/cash.txt", "r");
-    // while (fread(&cash, sizeof(struct Cash), 1, fr))
-    // {
-    // (cash.Income == 0)?printf("Income = NIL "):printf("Income = %d ",cash.Income);
-    // (cash.Expense == 0)?printf("Expense = NIL "):printf("Expense = %d ",cash.Expense);
-    // printf("Description = %s Date: %d-%d-%d\n", cash.Description, cash.date.day,cash.date.month,cash.date.year);
-    // // printf("Current Date: %d-%d-%d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
-    // }
-    // fclose(fr);
 }
 // CASH functions end
 
