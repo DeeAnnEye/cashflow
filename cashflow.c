@@ -26,14 +26,14 @@ struct Cash
 // header function
 void header()
 {
-    printf("\n\t\t\t\033[1m        WELCOME TO CASHFLOW \033[0m\n");
-    printf("\t\t\t   -----------------------------\t\t\n");
+    printf("\n\t\t **** CASHFLOW MANAGER ****");
+    printf("\n\t ---------------------------------------------------\t\t\n");
 }
 
 // main menu function
 void mainmenu()
 {
-    printf("Choose an option:\n\n");
+    printf("\n\nChoose an option:\n\n");
     printf("1.Add Money\n");
     printf("2.Add Expense\n");
     printf("3.View Cashflow\n");
@@ -79,7 +79,7 @@ void addincome(struct Cash cash)
     scanf("%d", &cash.Income);
     cash.Expense = 0;
     printf("Enter Description:");
-    scanf("%s", &cash.Description);
+    scanf(" %[^\n]s", &cash.Description);
     cash.date.day = tm.tm_mday;
     cash.date.month = tm.tm_mon + 1;
     cash.date.year = tm.tm_year + 1900;
@@ -110,7 +110,7 @@ void addexpense(struct Cash cash)
     printf("Enter Expense:");
     scanf("%d", &cash.Expense);
     printf("Enter Description:");
-    scanf("%s", &cash.Description);
+    scanf(" %[^\n]s", &cash.Description);
     cash.date.day = tm.tm_mday;
     cash.date.month = tm.tm_mon + 1;
     cash.date.year = tm.tm_year + 1900;
@@ -219,17 +219,17 @@ void viewcash(struct Cash cash)
         }
         else
         {
-            printf("No Cashflow for selected month.");
+            printf("\nNo Cashflow for selected month.\n");
         }
         printf("\nTotal Income this month: %d", income);
         printf("\nTotal Expense this month: %d", expense);
         if (expense > income)
         {
-            printf("\n Cash spent in Excess.");
+            printf("\n Cash spent in Excess.\n");
         }
         else
         {
-            printf("\nCash spent within limit.");
+            printf("\nCash spent within limit.\n");
         }
         fclose(fr);
 
@@ -243,6 +243,8 @@ void viewcash(struct Cash cash)
 
 int main()
 {
+menu:
+    system("cls");
     // Header
     header();
     int n;
@@ -265,4 +267,27 @@ int main()
         printf("Invalid option");
         break;
     }
+printf("\n (1) Main menu\n (0) Exit\n");
+
+    scanf("%d", &n);
+
+    switch (n)
+
+    {
+
+    case 1:
+
+        goto menu;
+
+    case 0:
+
+        break;
+
+    default:
+
+        printf("Invalid choice");
+        break;
+    }
+    
+
 }
