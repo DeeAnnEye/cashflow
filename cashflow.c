@@ -34,7 +34,7 @@ void header()
 void mainmenu()
 {
     printf("\n\nChoose an option:\n\n");
-    printf("\t1.Add Money\n");
+    printf("\t1.Add Income\n");
     printf("\t2.Add Expense\n");
     printf("\t3.View Cashflow\n");
     printf("\t4.Delete Cashflow\n");
@@ -269,9 +269,9 @@ void deletecash(struct Cash cash)
     scanf("%d", &n);
     if (n == 1)
     {
-        printf("Enter Date,Month,Year(DD MM YYYY) of cashflow:");
+        printf("\nEnter Date,Month,Year(DD M YYYY) of cashflow to delete:");
         scanf("%d %d %d", &d, &m, &y);
-        printf("%d %d %d", d, m, y);
+        // printf("%d %d %d", d, m, y);
         // scanf("%d",&m);
 
         fr = fopen("cash.txt", "r");
@@ -289,11 +289,33 @@ void deletecash(struct Cash cash)
         remove("cash.txt");
 
         rename("temp.txt", "cash.txt");
-        printf("Cashflow deleted.");
+        printf("\nCashflow deleted.");
+    }
+    else if (n == 2)
+    {
+        printf("\nEnter Month,Year(M YYYY) of cashflow to delete:");
+        scanf("%d %d", &m, &y);
+
+        fr = fopen("cash.txt", "r");
+        fp = fopen("temp.txt", "w");
+        while (fread(&cash, sizeof(struct Cash), 1, fr))
+        {
+            if (m != cash.date.month && y != cash.date.year)
+            {
+                fwrite(&cash, sizeof(cash), 1, fp);
+            }
+        }
+        fclose(fr);
+
+        fclose(fp);
+        remove("cash.txt");
+
+        rename("temp.txt", "cash.txt");
+        printf("\nCashflow deleted.");
     }
     else
     {
-        printf("Cashflow.....");
+        printf("\nInvalid Choice.\n");
     }
 }
 // CASH functions end
@@ -333,19 +355,12 @@ menu:
     scanf("%d", &n);
 
     switch (n)
-
     {
-
     case 1:
-
         goto menu;
-
     case 0:
-
         break;
-
     default:
-
         printf("Invalid choice");
         break;
     }
