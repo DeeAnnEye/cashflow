@@ -53,18 +53,18 @@ void cashviewmenu()
 void monthselector()
 {
     printf("\nSelect Month to view Cashflow:\n\n");
-    printf("1.Jan\n");
-    printf("2.Feb\n");
-    printf("3.Mar\n");
-    printf("4.Apr\n");
-    printf("5.May\n");
-    printf("6.Jun\n");
-    printf("7.Jul\n");
-    printf("8.Aug\n");
-    printf("9.Sept\n");
-    printf("10.Oct\n");
-    printf("11.Nov\n");
-    printf("12.Dec\n");
+    printf("\t1.Jan");
+    printf("\t2.Feb");
+    printf("\t3.Mar\n");
+    printf("\t4.Apr");
+    printf("\t5.May");
+    printf("\t6.Jun\n");
+    printf("\t7.Jul");
+    printf("\t8.Aug");
+    printf("\t9.Sept\n");
+    printf("\t10.Oct");
+    printf("\t11.Nov");
+    printf("\t12.Dec\n");
 }
 
 // delete menu
